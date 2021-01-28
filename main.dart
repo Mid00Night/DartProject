@@ -5,6 +5,7 @@ String location;
 int passengerlimit;
 String date;
 double price;
+List<Trips> myList = List<Trips>();
 main(List<String> args) {
   int input;
   while (true) {
@@ -88,9 +89,9 @@ main(List<String> args) {
     print('Do you want to continue ?  y/n');
     String c = stdin.readLineSync();
     if(c == 'n')
-      {
-        exit(0);
-      }
+    {
+      exit(0);
+    }
     else{
       continue;
     }
@@ -103,11 +104,12 @@ class TravelAgency {
   int PassengerLimit;
   String Date;
   double Price;
-  List<Trips> myList = List<Trips>();
-  Trips t1 = Trips();
+
+
 
   AddTrip(
       int ID, String Location, int PassengerLimit, double Price, String Date) {
+    Trips t1 = Trips();
     t1.ID = ID;
     t1.Location = Location;
     t1.PassengerLimit = PassengerLimit;
@@ -119,6 +121,7 @@ class TravelAgency {
 
   EditTrip(
       int ID, String Location, int PassengerLimit, double Price, String Date) {
+    Trips t1 = Trips();
     t1.ID = ID;
     t1.Location = Location;
     t1.PassengerLimit = PassengerLimit;
@@ -130,10 +133,9 @@ class TravelAgency {
   DeleteTrip(int ID) {
     for (int i = 0; i <= myList.length; i++) {
       if (ID == myList[i].ID) {
-        myList[i] == 0;
+        myList.removeAt(i);
       }
     }
-    print('There are no trips with that ID');
   }
 
   ViewTrips() {
@@ -146,23 +148,23 @@ class TravelAgency {
         'Price' +
         '       ' +
         'Date');
-    for (int i = 0; i <= myList.length; i++) {
-      print('$myList[i].ID' +
+    for (int i = 0; i < myList.length; i++) {
+      print('${myList[i].ID}' +
           '    ' +
-          '$myList[i].Location' +
+          '${myList[i].Location}' +
           '    ' +
-          '$myList[i].PassengerLimit' +
+          '${myList[i].PassengerLimit}' +
           '    ' +
-          '$myList[i].Price' +
+          '${myList[i].Price}' +
           '    ' +
-          '$myList[i].Date');
+          '${myList[i].Date}');
     }
   }
 
   SearchTrip(double Price) {
-    for (int i = 0; i <= myList.length; i++) {
+    for (int i = 0; i < myList.length; i++) {
       if (Price == myList[i].Price) {
-        print(myList[i].toString());
+        myList[i].print();
       }
     }
   }
@@ -171,12 +173,47 @@ class TravelAgency {
 }
 
 class Trips {
-  int ID;
-  String Location;
-  int PassengerLimit;
-  String Date;
-  double Price;
+  int _ID;
+
+  int get ID => _ID;
+
+  set ID(int value) {
+    _ID = value;
+  }
+
+  String _Location;
+  int _PassengerLimit;
+  String _Date;
+  double _Price;
   List<Passengers> p = List<Passengers>();
+
+  String get Location => _Location;
+
+  set Location(String value) {
+    _Location = value;
+  }
+
+  int get PassengerLimit => _PassengerLimit;
+
+  set PassengerLimit(int value) {
+    _PassengerLimit = value;
+  }
+
+  String get Date => _Date;
+
+  set Date(String value) {
+    _Date = value;
+  }
+
+  double get Price => _Price;
+
+  set Price(double value) {
+    _Price = value;
+  }
+  void print([String s]){
+    print('${this.ID} + ${this.Location} + ${this.PassengerLimit} + ${this.Date} + ${this.Price}');
+  }
+
 }
 class Passengers {
   String name;
